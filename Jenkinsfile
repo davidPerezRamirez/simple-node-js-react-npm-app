@@ -15,12 +15,19 @@ pipeline {
         stage('Build') { 
             steps {
                 sh 'npm install'
+                sh 'npm run'
             }
         }
         stage('Test') {
             steps {
                 sh 'npm test'
             }   
+        }
+        stage('Deploy') {
+            steps {
+                sh './jenkins/scripts/deliver.sh'
+                input message: 'Finished using the web site? (Click "Proceed" to continue)'
+            }
         }
     }
 }
